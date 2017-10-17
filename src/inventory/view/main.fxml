@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Text?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TextField?>
+<VBox alignment="CENTER_LEFT" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.121" fx:controller="inventory.controller.MainController" minWidth="700">
+   <children>
+      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Inventory Management System" />
+      <HBox prefHeight="100.0" prefWidth="700.0">
+          <VBox id="partsContainer" HBox.hgrow="ALWAYS">
+              <HBox id="partsTitleRow">
+                  <Text text="Parts"/>
+                  <HBox id="searchForm" alignment="CENTER_RIGHT">
+                      <Button text="Search"/>
+                      <TextField/>
+                  </HBox>
+              </HBox>
+              <TableView>
+                  <columns>
+                      <TableColumn text="Part ID"/>
+                      <TableColumn text="Part Name"/>
+                      <TableColumn text="Inventory Level"/>
+                      <TableColumn text="Price/Cost per Unit"/>
+                  </columns>
+              </TableView>
+          </VBox>
+          <VBox id="productsContainer" HBox.hgrow="ALWAYS">
+              <HBox id="productsTitleRow">
+                  <Text text="Products"/>
+                  <HBox id="searchForm" alignment="CENTER_RIGHT">
+                      <Button text="Search"/>
+                      <TextField/>
+                  </HBox>
+              </HBox>
+              <TableView>
+                  <columns>
+                      <TableColumn text="Product ID"/>
+                      <TableColumn text="Product Name"/>
+                      <TableColumn text="Inventory Level"/>
+                      <TableColumn text="Price per Unit"/>
+                  </columns>
+              </TableView>
+          </VBox>
+      </HBox>
+      <HBox prefHeight="100.0" prefWidth="700.0" alignment="CENTER_RIGHT">
+          <Button text="Exit"/>
+      </HBox>
+   </children>
+</VBox>
