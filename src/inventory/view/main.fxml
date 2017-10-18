@@ -7,6 +7,7 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.TextField?>
+<?import java.net.URL?>
 <VBox alignment="CENTER_LEFT" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.121" fx:controller="inventory.controller.MainController" minWidth="700">
    <children>
       <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Inventory Management System" />
@@ -15,7 +16,7 @@
               <HBox id="partsTitleRow">
                   <Text text="Parts"/>
                   <HBox id="searchForm" alignment="CENTER_RIGHT">
-                      <Button text="Search"/>
+                      <Button text="Search"  onAction="#handleSearchPartClick"/>
                       <TextField/>
                   </HBox>
               </HBox>
@@ -27,12 +28,17 @@
                       <TableColumn text="Price/Cost per Unit"/>
                   </columns>
               </TableView>
+              <HBox id="partsActionRow">
+                  <Button text="Add" onAction="#handleAddPartClick"/>
+                  <Button text="Modify" onAction="#handleModifyPartClick"/>
+                  <Button text="Delete" onAction="#handleDeletePartClick"/>
+              </HBox>
           </VBox>
           <VBox id="productsContainer" HBox.hgrow="ALWAYS">
               <HBox id="productsTitleRow">
                   <Text text="Products"/>
                   <HBox id="searchForm" alignment="CENTER_RIGHT">
-                      <Button text="Search"/>
+                      <Button text="Search" onAction="#handleSearchProductClick"/>
                       <TextField/>
                   </HBox>
               </HBox>
@@ -44,10 +50,18 @@
                       <TableColumn text="Price per Unit"/>
                   </columns>
               </TableView>
+              <HBox id="productsActionRow">
+                  <Button text="Add" onAction="#handleAddProductClick"/>
+                  <Button text="Modify" onAction="#handleModifyProductClick"/>
+                  <Button text="Delete" onAction="#handleDeleteProductClick"/>
+              </HBox>
           </VBox>
       </HBox>
       <HBox prefHeight="100.0" prefWidth="700.0" alignment="CENTER_RIGHT">
-          <Button text="Exit"/>
+          <Button text="Exit" onAction="#handleExitClick"/>
       </HBox>
    </children>
+    <stylesheets>
+        <URL value="@main.css"/>
+    </stylesheets>
 </VBox>
