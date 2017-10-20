@@ -1,5 +1,6 @@
 package inventory;
 
+import inventory.model.Inventory;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -8,16 +9,22 @@ import javafx.stage.Stage;
 
 public class Main extends Application {
 
+    private static Inventory inventory = new Inventory();
+
     @Override
     public void start(Stage primaryStage) throws Exception{
         Parent root = FXMLLoader.load(getClass().getResource("view/main.fxml"));
-        primaryStage.setTitle("Hello World");
-        primaryStage.setScene(new Scene(root, 700, 275));
+        primaryStage.setTitle("Inventory Management System");
+        primaryStage.setScene(new Scene(root, 990, 465));
         primaryStage.show();
     }
 
 
     public static void main(String[] args) {
         launch(args);
+    }
+
+    public static Inventory getInventory() {
+        return inventory;
     }
 }

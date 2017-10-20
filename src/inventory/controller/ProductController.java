@@ -1,4 +1,4 @@
 package inventory.controller;
 
-public class ProductController {
+public class ProductController extends BaseController {
 }

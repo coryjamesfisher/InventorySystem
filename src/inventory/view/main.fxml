@@ -1,67 +1,65 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Text?>
-<?import javafx.scene.control.TableView?>
-<?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
-<?import java.net.URL?>
-<VBox alignment="CENTER_LEFT" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.121" fx:controller="inventory.controller.MainController" minWidth="700">
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="465.0" prefWidth="990.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="inventory.controller.MainController">
    <children>
-      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Inventory Management System" />
-      <HBox prefHeight="100.0" prefWidth="700.0">
-          <VBox id="partsContainer" HBox.hgrow="ALWAYS">
-              <HBox id="partsTitleRow">
-                  <Text text="Parts"/>
-                  <HBox id="searchForm" alignment="CENTER_RIGHT">
-                      <Button text="Search"  onAction="#handleSearchPartClick"/>
-                      <TextField/>
-                  </HBox>
-              </HBox>
-              <TableView>
-                  <columns>
-                      <TableColumn text="Part ID"/>
-                      <TableColumn text="Part Name"/>
-                      <TableColumn text="Inventory Level"/>
-                      <TableColumn text="Price/Cost per Unit"/>
-                  </columns>
-              </TableView>
-              <HBox id="partsActionRow">
-                  <Button text="Add" onAction="#handleAddPartClick"/>
-                  <Button text="Modify" onAction="#handleModifyPartClick"/>
-                  <Button text="Delete" onAction="#handleDeletePartClick"/>
-              </HBox>
-          </VBox>
-          <VBox id="productsContainer" HBox.hgrow="ALWAYS">
-              <HBox id="productsTitleRow">
-                  <Text text="Products"/>
-                  <HBox id="searchForm" alignment="CENTER_RIGHT">
-                      <Button text="Search" onAction="#handleSearchProductClick"/>
-                      <TextField/>
-                  </HBox>
-              </HBox>
-              <TableView>
-                  <columns>
-                      <TableColumn text="Product ID"/>
-                      <TableColumn text="Product Name"/>
-                      <TableColumn text="Inventory Level"/>
-                      <TableColumn text="Price per Unit"/>
-                  </columns>
-              </TableView>
-              <HBox id="productsActionRow">
-                  <Button text="Add" onAction="#handleAddProductClick"/>
-                  <Button text="Modify" onAction="#handleModifyProductClick"/>
-                  <Button text="Delete" onAction="#handleDeleteProductClick"/>
-              </HBox>
-          </VBox>
-      </HBox>
-      <HBox prefHeight="100.0" prefWidth="700.0" alignment="CENTER_RIGHT">
-          <Button text="Exit" onAction="#handleExitClick"/>
-      </HBox>
+      <Text layoutX="47.0" layoutY="64.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Inventory Management System">
+         <font>
+            <Font name="Arial Bold" size="18.0" />
+         </font>
+      </Text>
+      <Pane layoutX="47.0" layoutY="107.0" prefHeight="299.0" prefWidth="438.0" style="-fx-border-width: 1px; -fx-border-color: gray;">
+         <children>
+            <Text layoutX="14.0" layoutY="31.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Parts">
+               <font>
+                  <Font name="Arial Bold" size="18.0" />
+               </font>
+            </Text>
+            <Button layoutX="155.0" layoutY="11.0" mnemonicParsing="false" text="Search" />
+            <TextField layoutX="232.0" layoutY="11.0" />
+            <TableView fx:id="partTable" layoutX="14.0" layoutY="54.0" prefHeight="175.0" prefWidth="410.0">
+              <columns>
+                <TableColumn fx:id="partID" prefWidth="60.0" text="Part ID" />
+                <TableColumn fx:id="partName" prefWidth="84.0" text="Part Name" />
+                  <TableColumn fx:id="partInventoryLevel" prefWidth="112.0" text="Inventory Level" />
+                  <TableColumn fx:id="partPrice" prefWidth="145.0" text="Price/Cost Per Unit" />
+              </columns>
+            </TableView>
+            <Button layoutX="332.0" layoutY="242.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="67.0" text="Delete" />
+            <Button layoutX="174.0" layoutY="242.0" mnemonicParsing="false" onAction="#handleAddPartClick" prefHeight="27.0" prefWidth="67.0" text="Add" />
+            <Button layoutX="253.0" layoutY="242.0" mnemonicParsing="false" onAction="#handleModifyPartClick" prefHeight="27.0" prefWidth="67.0" text="Modify" />
+         </children>
+      </Pane>
+      <Pane layoutX="503.0" layoutY="107.0" prefHeight="299.0" prefWidth="438.0" style="-fx-border-width: 1px; -fx-border-color: gray;">
+         <children>
+            <Text layoutX="14.0" layoutY="31.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Products">
+               <font>
+                  <Font name="Arial Bold" size="18.0" />
+               </font>
+            </Text>
+            <Button layoutX="155.0" layoutY="11.0" mnemonicParsing="false" text="Search" />
+            <TextField layoutX="232.0" layoutY="11.0" />
+            <TableView layoutX="14.0" layoutY="54.0" prefHeight="175.0" prefWidth="410.0">
+               <columns>
+                  <TableColumn prefWidth="60.0" text="Part ID" />
+                  <TableColumn prefWidth="84.0" text="Part Name" />
+                  <TableColumn prefWidth="112.0" text="Inventory Level" />
+                  <TableColumn prefWidth="145.0" text="Price/Cost Per Unit" />
+               </columns>
+            </TableView>
+            <Button layoutX="332.0" layoutY="242.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="67.0" text="Delete" />
+            <Button layoutX="174.0" layoutY="242.0" mnemonicParsing="false" onAction="#handleAddProductClick" prefHeight="27.0" prefWidth="67.0" text="Add" />
+            <Button layoutX="253.0" layoutY="242.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="67.0" text="Modify" />
+         </children>
+      </Pane>
+      <Button layoutX="827.0" layoutY="417.0" mnemonicParsing="false" onAction="#handleExitClick" prefHeight="27.0" prefWidth="78.0" text="Exit" />
    </children>
-    <stylesheets>
-        <URL value="@main.css"/>
-    </stylesheets>
-</VBox>
+</AnchorPane>
