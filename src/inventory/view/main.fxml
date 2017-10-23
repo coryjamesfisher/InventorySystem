@@ -23,8 +23,8 @@
                   <Font name="Arial Bold" size="18.0" />
                </font>
             </Text>
-            <Button layoutX="155.0" layoutY="11.0" mnemonicParsing="false" text="Search" />
-            <TextField layoutX="232.0" layoutY="11.0" />
+            <Button layoutX="155.0" layoutY="11.0" mnemonicParsing="false" onAction="#handleSearchPartClick" text="Search" />
+            <TextField fx:id="searchField" layoutX="232.0" layoutY="11.0" />
             <TableView fx:id="partTable" layoutX="14.0" layoutY="54.0" prefHeight="175.0" prefWidth="410.0">
               <columns>
                 <TableColumn fx:id="partID" prefWidth="60.0" text="Part ID" />
@@ -33,7 +33,7 @@
                   <TableColumn fx:id="partPrice" prefWidth="145.0" text="Price/Cost Per Unit" />
               </columns>
             </TableView>
-            <Button layoutX="332.0" layoutY="242.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="67.0" text="Delete" />
+            <Button layoutX="332.0" layoutY="242.0" mnemonicParsing="false" onAction="#handleDeletePartClick" prefHeight="27.0" prefWidth="67.0" text="Delete" />
             <Button layoutX="174.0" layoutY="242.0" mnemonicParsing="false" onAction="#handleAddPartClick" prefHeight="27.0" prefWidth="67.0" text="Add" />
             <Button layoutX="253.0" layoutY="242.0" mnemonicParsing="false" onAction="#handleModifyPartClick" prefHeight="27.0" prefWidth="67.0" text="Modify" />
          </children>

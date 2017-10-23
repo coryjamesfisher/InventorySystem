@@ -1,14 +1,14 @@
 package inventory.model;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 public class Inventory {
 
-    private ObservableList<Product> products = FXCollections.observableArrayList();
-    private ObservableList<Part> allParts = FXCollections.observableArrayList();
+    private List<Product> products = new ArrayList<>();
+    private List<Part> allParts = new ArrayList<>();
 
     public void addProduct(Product product) {
         products.add(product);
@@ -71,11 +71,26 @@ public class Inventory {
                 .findFirst().orElse(null);
     }
 
-    public void updatePart(int partID) {
-        // uml wtf?
+    public List<Part> lookupPart(String name) {
+        return allParts.stream()
+                .filter(part -> part.getName().toUpperCase().contains(name.toUpperCase()))
+                .collect(Collectors.toList());
     }
 
-    public ObservableList<Part> getAllParts() {
+    public void updatePart(int partID, Part part) {
+        // uml wtf?
+        Integer partIndex = allParts.indexOf(lookupPart(partID));
+
+        if (partIndex == -1) {
+            return;
+        }
+
+        allParts.set(partIndex, part);
+    }
+
+
+
+    public List<Part> getAllParts() {
         return allParts;
     }
 }
