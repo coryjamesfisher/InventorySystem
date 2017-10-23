@@ -5,11 +5,11 @@ import inventory.model.Outsourced;
 import inventory.model.Part;
 import javafx.event.Event;
 import javafx.fxml.FXML;
-import javafx.scene.control.Label;
-import javafx.scene.control.RadioButton;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class PartController extends BaseController {
 
@@ -55,11 +55,20 @@ public class PartController extends BaseController {
         name.setText(part.getName());
         inv.setText(String.valueOf(part.getInStock()));
         price.setText(String.valueOf(part.getPrice()));
-        min.setText(String.valueOf(part.getMin()));
-        max.setText(String.valueOf(part.getMax()));
+
+        if (part.getMin() != -1) {
+            min.setText(String.valueOf(part.getMin()));
+        }
+
+        if (part.getMax() != -1) {
+            max.setText(String.valueOf(part.getMax()));
+        }
 
         if (part instanceof Inhouse) {
-            machID.setText(String.valueOf(((Inhouse)part).getMachineID()));
+
+            if (((Inhouse) part).getMachineID() != -1) {
+                machID.setText(String.valueOf(((Inhouse) part).getMachineID()));
+            }
             handleInHouseClick(null);
             inHouse.setSelected(true);
             outsourced.setSelected(false);
@@ -75,6 +84,15 @@ public class PartController extends BaseController {
     public void handleSaveClick(Event event) throws IOException {
         Part part = parseForm();
 
+        List<String> errors = validatePart(part);
+
+        // Part invalid
+        if (errors.size() > 0) {
+            Alert alert = new Alert(Alert.AlertType.ERROR, String.join("\n", errors), ButtonType.CLOSE);
+            alert.showAndWait();
+            return;
+        }
+
         if (part.getPartID() != 0) {
             getInventory().updatePart(part.getPartID(), part);
 
@@ -85,6 +103,31 @@ public class PartController extends BaseController {
         goHome(event);
     }
 
+    private List<String> validatePart(Part part) {
+        List<String> errors = new ArrayList<>();
+        if (part.getMin() != -1 && part.getMax() != -1 && part.getMin() > part.getMax()) {
+            errors.add("Minimum allowed must be less than maximum allowed.");
+        }
+
+        if (part.getMin() != -1 && part.getInStock() < part.getMin()) {
+            errors.add("Inventory must be greater than the minimum.");
+        }
+
+        if (part.getMax() != -1 && part.getInStock() > part.getMax()) {
+            errors.add("Inventory must be less than the maximum.");
+        }
+
+        if (part.getName() == null || part.getName().length() == 0) {
+            errors.add("Name is a required field.");
+        }
+
+        if (part.getPrice() == -1) {
+            errors.add("Price is a required field.");
+        }
+
+        return errors;
+    }
+
     private Part parseForm() {
         Part part = inHouse.isSelected() ? new Inhouse() : new Outsourced();
 
@@ -93,13 +136,28 @@ public class PartController extends BaseController {
         }
 
         part.setName(name.getText());
-        part.setInStock(Integer.valueOf(inv.getText()));
-        part.setPrice(Double.valueOf(price.getText()));
-        part.setMax(Integer.valueOf(max.getText()));
-        part.setMin(Integer.valueOf(min.getText()));
+
+        // Added safety checks around integer values to avoid NPE
+        if (inv.getText().matches("\\d+")) {
+            part.setInStock(Integer.valueOf(inv.getText()));
+        }
+
+        if (price.getText().matches("[0-9]+\\.?[0-9]*")) {
+            part.setPrice(Double.valueOf(price.getText()));
+        }
+
+        if (max.getText().matches("\\d+")) {
+            part.setMax(Integer.valueOf(max.getText()));
+        }
+
+        if (min.getText().matches("\\d+")) {
+            part.setMin(Integer.valueOf(min.getText()));
+        }
 
         if (inHouse.isSelected()) {
-            ((Inhouse) part).setMachineID(Integer.valueOf(machID.getText()));
+            if (machID.getText().matches("\\d+")) {
+                ((Inhouse) part).setMachineID(Integer.valueOf(machID.getText()));
+            }
         } else {
             ((Outsourced) part).setCompanyName(companyName.getText());
         }

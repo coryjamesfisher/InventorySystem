@@ -1,16 +1,17 @@
 package inventory.model;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 public class Product {
-    private ArrayList<Part> associatedParts;
+    private List<Part> associatedParts = new ArrayList<>();
     private int productID;
     private String name;
-    private double price;
-    private int inStock;
-    private int min;
-    private int max;
+    private double price = -1;
+    private int inStock = 0;
+    private int min = -1;
+    private int max = -1;
 
     public void addAssociatedPart(Part part) {
         associatedParts.add(part);
@@ -27,13 +28,16 @@ public class Product {
 
         associatedParts.remove(part.get());
         return true;
-
     }
 
     public Part lookupAssociatedPart(int partID) {
         return associatedParts.stream()
                 .filter(part -> part.getPartID() == partID)
                 .findFirst().orElse(null);
+    }
+
+    public List<Part> getAssociatedParts() {
+        return associatedParts;
     }
 
     public int getProductID() {

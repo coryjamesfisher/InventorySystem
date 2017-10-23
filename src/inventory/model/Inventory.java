@@ -11,6 +11,16 @@ public class Inventory {
     private List<Part> allParts = new ArrayList<>();
 
     public void addProduct(Product product) {
+        // Get max partID + 1
+        int productID = products.stream()
+                .mapToInt(p -> p.getProductID())
+                .max()
+                .orElse(0) + 1;
+
+        // Set productID
+        product.setProductID(productID);
+
+        // Add product to list
         products.add(product);
     }
 
@@ -33,8 +43,22 @@ public class Inventory {
                 .findFirst().orElse(null);
     }
 
-    public void updateProduct(int productID) {
-        // uml wtf?
+    public List<Product> lookupProduct(String productName) {
+        return products.stream()
+                .filter(product -> product.getName().toUpperCase().contains(productName.toUpperCase()))
+                .collect(Collectors.toList());
+    }
+
+    public void updateProduct(int productID, Product product) {
+        // uml wtf
+
+        Integer productIndex = products.indexOf(lookupProduct(productID));
+
+        if (productIndex == -1) {
+            return;
+        }
+
+        products.set(productIndex, product);
     }
 
     public void addPart(Part part) {
@@ -92,5 +116,9 @@ public class Inventory {
 
     public List<Part> getAllParts() {
         return allParts;
+    }
+
+    public List<Product> getProducts() {
+        return products;
     }
 }

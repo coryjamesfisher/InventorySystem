@@ -45,31 +45,32 @@
          <Font name="Arial Bold" size="13.0" />
       </font>
    </Label>
-   <TextField layoutX="142.0" layoutY="107.0" prefHeight="27.0" prefWidth="149.0" promptText="Auto Gen - Disabled" />
-   <TextField layoutX="142.0" layoutY="142.0" prefHeight="27.0" prefWidth="149.0" promptText="Part Name" />
-   <TextField layoutX="142.0" layoutY="177.0" prefHeight="27.0" prefWidth="68.0" promptText="Inv" />
-   <TextField layoutX="142.0" layoutY="212.0" prefHeight="27.0" prefWidth="68.0" promptText="Price" />
-   <TextField layoutX="142.0" layoutY="247.0" prefHeight="27.0" prefWidth="68.0" promptText="Max" />
-   <Button layoutX="614.0" layoutY="400.0" mnemonicParsing="false" text="Save" />
+   <TextField fx:id="id" layoutX="142.0" layoutY="107.0" prefHeight="27.0" prefWidth="149.0" promptText="Auto Gen - Disabled" />
+   <TextField fx:id="name" layoutX="142.0" layoutY="142.0" prefHeight="27.0" prefWidth="149.0" promptText="Part Name" />
+   <TextField fx:id="inv" layoutX="142.0" layoutY="177.0" prefHeight="27.0" prefWidth="68.0" promptText="Inv, default: 0" />
+   <TextField fx:id="price" layoutX="142.0" layoutY="212.0" prefHeight="27.0" prefWidth="68.0" promptText="Price" />
+   <TextField fx:id="max" layoutX="142.0" layoutY="247.0" prefHeight="27.0" prefWidth="68.0" promptText="Max" />
+   <Button layoutX="614.0" layoutY="400.0" mnemonicParsing="false" onAction="#handleSaveClick" text="Save" />
    <Button layoutX="682.0" layoutY="400.0" mnemonicParsing="false" onAction="#goHome" text="Cancel" />
-   <TextField layoutX="266.0" layoutY="247.0" prefHeight="27.0" prefWidth="75.0" promptText="Min" />
-   <TableView layoutX="383.0" layoutY="78.0" prefHeight="113.0" prefWidth="370.0">
+   <TextField fx:id="min" layoutX="266.0" layoutY="247.0" prefHeight="27.0" prefWidth="75.0" promptText="Min" />
+   <TableView fx:id="partSearchTable" layoutX="383.0" layoutY="78.0" prefHeight="113.0" prefWidth="370.0">
      <columns>
-       <TableColumn prefWidth="65.0" text="Part ID" />
-       <TableColumn prefWidth="85.0" text="Part Name" />
-         <TableColumn prefWidth="109.0" text="Inventory Level" />
-         <TableColumn prefWidth="110.0" text="Price per Unit" />
+        <TableColumn fx:id="searchPartID" prefWidth="65.0" text="Part ID" />
+        <TableColumn fx:id="searchPartName" prefWidth="85.0" text="Part Name" />
+        <TableColumn fx:id="searchPartInventoryLevel" prefWidth="109.0" text="Inventory Level" />
+        <TableColumn fx:id="searchPartPrice" prefWidth="110.0" text="Price per Unit" />
      </columns>
    </TableView>
-   <Button layoutX="462.0" layoutY="36.0" mnemonicParsing="false" text="Search" />
-   <TextField layoutX="553.0" layoutY="36.0" />
-   <TableView layoutX="383.0" layoutY="229.0" prefHeight="113.0" prefWidth="370.0">
+   <Button layoutX="462.0" layoutY="36.0" mnemonicParsing="false" onAction="#handleSearchPartClick" text="Search" />
+   <TextField fx:id="searchField" layoutX="553.0" layoutY="36.0" />
+   <TableView fx:id="productPartsTable" layoutX="383.0" layoutY="229.0" prefHeight="113.0" prefWidth="370.0">
       <columns>
-         <TableColumn prefWidth="75.0" text="Part ID" />
-         <TableColumn prefWidth="75.0" text="Part Name" />
-         <TableColumn prefWidth="109.0" text="Inventory Level" />
-         <TableColumn prefWidth="110.0" text="Price per Unit" />
+         <TableColumn fx:id="productPartID" prefWidth="75.0" text="Part ID" />
+         <TableColumn fx:id="productPartName" prefWidth="75.0" text="Part Name" />
+         <TableColumn fx:id="productPartInventoryLevel" prefWidth="109.0" text="Inventory Level" />
+         <TableColumn fx:id="productPartPrice" prefWidth="110.0" text="Price per Unit" />
       </columns>
    </TableView>
-   <Button layoutX="682.0" layoutY="359.0" mnemonicParsing="false" text="Delete" />
+   <Button layoutX="685.0" layoutY="347.0" mnemonicParsing="false" onAction="#handleDeletePartClick" text="Delete" />
+   <Button layoutX="697.0" layoutY="196.0" mnemonicParsing="false" onAction="#handleAddPartClick" text="Add" />
 </AnchorPane>

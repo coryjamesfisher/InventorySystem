@@ -3,10 +3,10 @@ package inventory.model;
 public abstract class Part {
     private int partID;
     private String name;
-    private double price;
-    private int inStock;
-    private int min;
-    private int max;
+    private double price = -1;
+    private int inStock = 0;
+    private int min = -1;
+    private int max = -1;
 
     public int getPartID() {
         return partID;
