@@ -49,18 +49,18 @@
          <Font name="Arial Bold" size="13.0" />
       </font>
    </Label>
-   <TextField fx:id="id" editable="false" layoutX="205.0" layoutY="90.0" prefHeight="27.0" prefWidth="149.0" promptText="Auto Gen - Disabled" />
+   <TextField fx:id="id" editable="false" layoutX="205.0" layoutY="90.0" prefHeight="27.0" prefWidth="149.0" promptText="Auto Gen - Disabled" focusTraversable="false" disable="true" />
    <TextField fx:id="name" layoutX="205.0" layoutY="125.0" prefHeight="27.0" prefWidth="149.0" promptText="Part Name" />
    <TextField fx:id="inv" layoutX="205.0" layoutY="160.0" prefHeight="27.0" prefWidth="149.0" promptText="Inv, default: 0" />
    <TextField fx:id="price" layoutX="205.0" layoutY="195.0" prefHeight="27.0" prefWidth="149.0" promptText="Price/Cost" />
    <TextField fx:id="max" layoutX="205.0" layoutY="230.0" prefHeight="27.0" prefWidth="75.0" promptText="Max" />
+   <TextField fx:id="min" layoutX="332.0" layoutY="230.0" prefHeight="27.0" prefWidth="75.0" promptText="Min" />
    <TextField fx:id="machID" layoutX="205.0" layoutY="265.0" prefHeight="27.0" prefWidth="110.0" promptText="Mach ID" />
+   <Button layoutX="350.0" layoutY="325.0" mnemonicParsing="false" onAction="#handleSaveClick" text="Save" />
+   <Button layoutX="418.0" layoutY="325.0" mnemonicParsing="false" onAction="#handleCancelClick" text="Cancel" />
+   <TextField fx:id="companyName" layoutX="205.0" layoutY="265.0" prefHeight="27.0" prefWidth="110.0" promptText="Company Name" visible="false" />
    <RadioButton fx:id="inHouse" layoutX="205.0" layoutY="41.0" mnemonicParsing="false" onAction="#handleInHouseClick" selected="true" text="In-House" />
    <RadioButton fx:id="outsourced" layoutX="310.0" layoutY="41.0" mnemonicParsing="false" onAction="#handleOutsourcedClick" text="Outsourced" />
-   <Button layoutX="350.0" layoutY="325.0" mnemonicParsing="false" onAction="#handleSaveClick" text="Save" />
-   <Button layoutX="418.0" layoutY="325.0" mnemonicParsing="false" onAction="#goHome" text="Cancel" />
-   <TextField fx:id="min" layoutX="332.0" layoutY="230.0" prefHeight="27.0" prefWidth="75.0" promptText="Min" />
-   <TextField fx:id="companyName" layoutX="205.0" layoutY="265.0" prefHeight="27.0" prefWidth="110.0" promptText="Company Name" visible="false" />
    <Label fx:id="companyNameLabel" layoutX="92.0" layoutY="265.0" text="Company Name" visible="false">
       <font>
          <Font name="Arial Bold" size="13.0" />

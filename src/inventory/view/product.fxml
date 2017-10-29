@@ -45,14 +45,14 @@
          <Font name="Arial Bold" size="13.0" />
       </font>
    </Label>
-   <TextField fx:id="id" layoutX="142.0" layoutY="107.0" prefHeight="27.0" prefWidth="149.0" promptText="Auto Gen - Disabled" />
-   <TextField fx:id="name" layoutX="142.0" layoutY="142.0" prefHeight="27.0" prefWidth="149.0" promptText="Part Name" />
+   <TextField fx:id="id" layoutX="142.0" layoutY="107.0" prefHeight="27.0" prefWidth="149.0" promptText="Auto Gen - Disabled" focusTraversable="false" disable="true" />
+   <TextField fx:id="name" layoutX="142.0" layoutY="142.0" prefHeight="27.0" prefWidth="149.0" promptText="Product Name" />
    <TextField fx:id="inv" layoutX="142.0" layoutY="177.0" prefHeight="27.0" prefWidth="68.0" promptText="Inv, default: 0" />
    <TextField fx:id="price" layoutX="142.0" layoutY="212.0" prefHeight="27.0" prefWidth="68.0" promptText="Price" />
    <TextField fx:id="max" layoutX="142.0" layoutY="247.0" prefHeight="27.0" prefWidth="68.0" promptText="Max" />
-   <Button layoutX="614.0" layoutY="400.0" mnemonicParsing="false" onAction="#handleSaveClick" text="Save" />
-   <Button layoutX="682.0" layoutY="400.0" mnemonicParsing="false" onAction="#goHome" text="Cancel" />
    <TextField fx:id="min" layoutX="266.0" layoutY="247.0" prefHeight="27.0" prefWidth="75.0" promptText="Min" />
+   <Button layoutX="614.0" layoutY="400.0" mnemonicParsing="false" onAction="#handleSaveClick" text="Save" />
+   <Button layoutX="682.0" layoutY="400.0" mnemonicParsing="false" onAction="#handleCancelClick" text="Cancel" />
    <TableView fx:id="partSearchTable" layoutX="383.0" layoutY="78.0" prefHeight="113.0" prefWidth="370.0">
      <columns>
         <TableColumn fx:id="searchPartID" prefWidth="65.0" text="Part ID" />

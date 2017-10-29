@@ -4,7 +4,7 @@ import inventory.model.Part;
 import inventory.model.Product;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -15,8 +15,15 @@ import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
 
+/**
+ * Controller that handles the main screen and related actions.
+ */
 public class MainController extends BaseController {
 
+    /**
+     * All member variables below are related to the UI for the main screen.
+     * They are bound to the fxml elements in main.fxml
+     */
     @FXML
     private TableView partTable;
 
@@ -53,11 +60,29 @@ public class MainController extends BaseController {
     @FXML
     private TextField productSearchField;
 
+    /**
+     * An observable list of Parts filtered for the part search.
+     * When a different search is performed the table in the UI follows this list.
+     */
     private ObservableList<Part> filteredParts = FXCollections.observableArrayList();
 
+    /**
+     * An observable list of Products filtered for the part search.
+     * When a different search is performed the table in the UI follows this list.
+     */
     private ObservableList<Product> filteredProducts = FXCollections.observableArrayList();
 
-    public void handleSearchPartClick(ActionEvent event) throws IOException {
+    /**
+     * All of the following methods prefixed with handle are used for handling events from the UI.
+     */
+
+    /**
+     * Handle the part search.
+     * @param event - UI event
+     * @throws IOException
+     */
+    @FXML
+    public void handleSearchPartClick(Event event) throws IOException {
 
         // Clear current filter.
         filteredParts.clear();
@@ -90,38 +115,85 @@ public class MainController extends BaseController {
         }
     }
 
+    /**
+     * Handle add part click.
+     *
+     * @param event - UI event
+     * @throws IOException
+     */
     @FXML
-    private void handleAddPartClick(ActionEvent event) throws IOException {
+    private void handleAddPartClick(Event event) throws IOException {
         nextScene(event,"../view/part.fxml");
     }
 
+    /**
+     * Handle modify part click.
+     *
+     * @param event - UI event
+     * @throws IOException
+     */
     @FXML
-    public void handleModifyPartClick(ActionEvent event) throws IOException {
+    public void handleModifyPartClick(Event event) throws IOException {
+
+        Part part = (Part) partTable.getSelectionModel().getSelectedItem();
+
+        if (part == null) {
+            Alert alert = new Alert(Alert.AlertType.ERROR, "Please select a part to modify.");
+            alert.showAndWait();
+            return;
+        }
+
         PartController controller = (PartController) nextScene(event,"../view/part.fxml");
-
-        Part part = (Part) partTable.getSelectionModel().getSelectedItem();
-
-        if (part != null) {
-            controller.loadPart(part.getPartID());
-        }
+        controller.loadPart(part.getPartID());
     }
 
+    /**
+     * Handle delete part click.
+     *
+     * @param event - UI event
+     * @throws IOException
+     */
     @FXML
-    public void handleDeletePartClick(ActionEvent event) throws IOException {
+    public void handleDeletePartClick(Event event) throws IOException {
         Part part = (Part) partTable.getSelectionModel().getSelectedItem();
 
-        if (part != null) {
+        if (part == null) {
+            Alert alert = new Alert(Alert.AlertType.ERROR, "Please select the part you wish to delete.", ButtonType.CLOSE);
+            alert.showAndWait();
+            return;
+        }
+
+        if (getInventory().getProductsContainingPart(part.getPartID()).size() > 0) {
+            Alert alert = new Alert(Alert.AlertType.ERROR, "You may not remove this part as it is still associated to one or more products.", ButtonType.CLOSE);
+            alert.showAndWait();
+            return;
+        }
+
+        Alert alert = new Alert(
+                Alert.AlertType.CONFIRMATION,
+                "Are you sure you want to delete the selected part?",
+                ButtonType.YES, ButtonType.NO);
+        alert.showAndWait();
+
+        if (alert.getResult() == ButtonType.YES) {
             getInventory().deletePart(part.getPartID());
+            filteredParts.remove(part);
         }
     }
 
+    /**
+     * Handle product search click.
+     *
+     * @param event - UI event
+     * @throws IOException
+     */
     @FXML
-    public void handleSearchProductClick(ActionEvent event) throws IOException {
+    public void handleSearchProductClick(Event event) throws IOException {
         // Clear current filter.
         filteredProducts.clear();
 
         // IF search field is empty just return all the results.
-        if (partSearchField.getText().length() == 0) {
+        if (productSearchField.getText().length() == 0) {
             filteredProducts.addAll(getInventory().getProducts());
             return;
         }
@@ -148,48 +220,87 @@ public class MainController extends BaseController {
         }
     }
 
+    /**
+     * Handle add product click.
+     *
+     * @param event - UI event
+     * @throws IOException
+     */
     @FXML
-    public void handleAddProductClick(ActionEvent event) throws IOException {
+    public void handleAddProductClick(Event event) throws IOException {
         nextScene(event,"../view/product.fxml");
     }
 
+    /**
+     * Handle modify product click.
+     *
+     * @param event - UI event
+     * @throws IOException
+     */
     @FXML
-    public void handleModifyProductClick(ActionEvent event) throws IOException {
+    public void handleModifyProductClick(Event event) throws IOException {
+
+        Product product = (Product) productTable.getSelectionModel().getSelectedItem();
+
+        if (product == null) {
+            Alert alert = new Alert(Alert.AlertType.ERROR, "Please select a product to modify.");
+            alert.showAndWait();
+            return;
+        }
+
+        // Load the product controller
         ProductController controller = (ProductController) nextScene(event,"../view/product.fxml");
 
-        Product product = (Product) productTable.getSelectionModel().getSelectedItem();
-
-        if (product != null) {
-            controller.loadProduct(product.getProductID());
-        }
+        // Pass productID to the product controller
+        controller.loadProduct(product.getProductID());
     }
 
+    /**
+     * Handle delete product click.
+     *
+     * @param event - UI event
+     * @throws IOException
+     */
     @FXML
-    public void handleDeleteProductClick(ActionEvent event) throws IOException {
+    public void handleDeleteProductClick(Event event) throws IOException {
+
+        // Get the selected product from the table
         Product product = (Product) productTable.getSelectionModel().getSelectedItem();
 
-        if (product != null) {
-
-            if (product.getAssociatedParts().size() > 0) {
-                Alert alert = new Alert(Alert.AlertType.ERROR, "You may not delete a product that has a part assigned to it.", ButtonType.CLOSE);
-                alert.showAndWait();
-                return;
-            }
-
-            Alert alert = new Alert(
-                    Alert.AlertType.CONFIRMATION,
-                    "Are you sure you want to delete the selected product?",
-                    ButtonType.YES, ButtonType.NO);
+        if (product == null) {
+            Alert alert = new Alert(Alert.AlertType.ERROR, "Please select the product you wish to delete.", ButtonType.CLOSE);
             alert.showAndWait();
-
-            if (alert.getResult() == ButtonType.YES) {
-                getInventory().removeProduct(product.getProductID());
-            }
+            return;
         }
+
+        // Must remove all parts prior to deleting a product
+        if (product.getAssociatedParts().size() > 0) {
+            Alert alert = new Alert(Alert.AlertType.ERROR, "You may not delete a product that has a part assigned to it.", ButtonType.CLOSE);
+            alert.showAndWait();
+            return;
+        }
+
+        Alert alert = new Alert(
+                Alert.AlertType.CONFIRMATION,
+                "Are you sure you want to delete the selected product?",
+                ButtonType.YES, ButtonType.NO);
+        alert.showAndWait();
+
+        if (alert.getResult() == ButtonType.YES) {
+            getInventory().removeProduct(product.getProductID());
+            filteredProducts.remove(product);
+        }
+
     }
 
+    /**
+     * Handle exit button click.
+     *
+     * @param event - UI event
+     * @throws IOException
+     */
     @FXML
-    public void handleExitClick(ActionEvent event) throws IOException {
+    public void handleExitClick(Event event) throws IOException {
         Stage stage = (Stage) ((Button)event.getSource()).getScene().getWindow();
         stage.close();
     }
@@ -198,6 +309,7 @@ public class MainController extends BaseController {
     public void initialize(URL location, ResourceBundle resources) {
         super.initialize(location, resources);
 
+        // Initialize the parts table with all parts from inventory
         filteredParts.addAll(getInventory().getAllParts());
 
         // Bind table columns to properties
@@ -209,6 +321,7 @@ public class MainController extends BaseController {
         // Bind the part table to the allParts observable list in Inventory
         partTable.setItems(filteredParts);
 
+        // Initialize the products table with all products from inventory
         filteredProducts.addAll(getInventory().getProducts());
 
         // Bind table columns to properties

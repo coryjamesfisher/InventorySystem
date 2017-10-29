@@ -1,5 +1,8 @@
 package inventory.model;
 
+/**
+ * Base class representing all attributes common to both Inhouse and Outsourced parts.
+ */
 public abstract class Part {
     private int partID;
     private String name;
