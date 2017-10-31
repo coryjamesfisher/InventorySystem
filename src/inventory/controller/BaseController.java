@@ -39,7 +39,7 @@ public class BaseController implements Initializable {
     public BaseController nextScene(Event event, String fxml) throws IOException{
 
         // Load the fxml file
-        FXMLLoader loader = new FXMLLoader(getClass().getResource(fxml));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource(getBasePath() + fxml));
 
         // Get the button that was clicked to hook into the window/stage.
         Button clicked = (Button) event.getSource();
@@ -54,6 +54,10 @@ public class BaseController implements Initializable {
         return loader.getController();
     }
 
+    private String getBasePath() {
+        return "/inventory/";
+    }
+
     /**
      * Helper method to navigate to the main screen.
      *
@@ -62,7 +66,7 @@ public class BaseController implements Initializable {
      */
     @FXML
     public void goHome(Event event) throws IOException {
-        nextScene(event, "../view/main.fxml");
+        nextScene(event, "view/main.fxml");
     }
 
     /**

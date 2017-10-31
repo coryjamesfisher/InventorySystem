@@ -123,7 +123,7 @@ public class MainController extends BaseController {
      */
     @FXML
     private void handleAddPartClick(Event event) throws IOException {
-        nextScene(event,"../view/part.fxml");
+        nextScene(event,"view/part.fxml");
     }
 
     /**
@@ -143,7 +143,7 @@ public class MainController extends BaseController {
             return;
         }
 
-        PartController controller = (PartController) nextScene(event,"../view/part.fxml");
+        PartController controller = (PartController) nextScene(event,"view/part.fxml");
         controller.loadPart(part.getPartID());
     }
 
@@ -228,7 +228,7 @@ public class MainController extends BaseController {
      */
     @FXML
     public void handleAddProductClick(Event event) throws IOException {
-        nextScene(event,"../view/product.fxml");
+        nextScene(event,"view/product.fxml");
     }
 
     /**
@@ -249,7 +249,7 @@ public class MainController extends BaseController {
         }
 
         // Load the product controller
-        ProductController controller = (ProductController) nextScene(event,"../view/product.fxml");
+        ProductController controller = (ProductController) nextScene(event,"view/product.fxml");
 
         // Pass productID to the product controller
         controller.loadProduct(product.getProductID());

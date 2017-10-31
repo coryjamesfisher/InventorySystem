@@ -21,7 +21,7 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception {
 
         // Load the main view/controller.
-        Parent root = FXMLLoader.load(getClass().getResource("view/main.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/inventory/view/main.fxml"));
 
         // Set the title of the window.
         primaryStage.setTitle("Inventory Management System");
